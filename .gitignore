@@ -1,0 +1,26 @@
+# Environment
+.env
+*.env.local
+.venv
+venv/
+
+# Database
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.log
+
+# Node
+node_modules/
+dist/
+
+# Binaries
+*.exe
+cloudflared*
