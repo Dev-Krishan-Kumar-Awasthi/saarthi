@@ -68,6 +68,35 @@ app.include_router(audit_router)
 if circuitguard_router:
     app.include_router(circuitguard_router, prefix="/api")
 
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+from fastapi import HTTPException
+from config import PROJECT_ROOT
+
+# Serve Frontend Static Files & SPA Routing (Production & Docker)
+frontend_dist = PROJECT_ROOT / "frontend" / "dist"
+if not frontend_dist.exists():
+    frontend_dist = Path("/app/frontend/dist")
+
+if frontend_dist.exists():
+    assets_dir = frontend_dist / "assets"
+    if assets_dir.exists():
+        app.mount("/assets", StaticFiles(directory=str(assets_dir)), name="assets")
+
+    @app.get("/")
+    async def serve_index():
+        return FileResponse(frontend_dist / "index.html")
+
+    @app.get("/{full_path:path}")
+    async def serve_spa(full_path: str):
+        if full_path.startswith("api") or full_path.startswith("docs") or full_path.startswith("openapi.json"):
+            raise HTTPException(status_code=404, detail="Not Found")
+        
+        file_path = frontend_dist / full_path
+        if file_path.is_file():
+            return FileResponse(file_path)
+        return FileResponse(frontend_dist / "index.html")
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("main:app", host=API_HOST, port=API_PORT, reload=True)
