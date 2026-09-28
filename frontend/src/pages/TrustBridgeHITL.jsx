@@ -223,7 +223,7 @@ export default function TrustBridgeHITL() {
       </div>
 
       {/* 3. Metrics Ribbon */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: 14, marginBottom: 20 }}>
+      <div className="resp-grid-6" style={{ marginBottom: 20 }}>
         {[
           { label: 'Active Workflows', val: metrics.active_workflows, color: '#0284c7', sub: 'Running in background' },
           { label: 'Awaiting Your Review', val: metrics.waiting_for_human, color: metrics.waiting_for_human > 0 ? '#ef4444' : '#10b981', sub: 'Paused at safety gate' },
@@ -280,7 +280,7 @@ export default function TrustBridgeHITL() {
 
       {/* TAB 1: HUMAN REVIEW QUEUE */}
       {activeTab === 'review' && (
-        <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 24 }}>
+        <div className="resp-grid-split">
           {/* Left Column: Review Queue & Action Card */}
           <div>
             <div style={{ fontSize: 12, fontWeight: 700, textTransform: 'uppercase', color: '#64748b', marginBottom: 12 }}>
@@ -576,7 +576,7 @@ export default function TrustBridgeHITL() {
               No active checkpoint loaded. Start a workflow from the Review Queue first.
             </div>
           ) : (
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
+            <div className="resp-grid-2" style={{ gap: 24 }}>
               <div>
                 <div style={{ fontSize: 12, fontWeight: 700, color: '#64748b', textTransform: 'uppercase', marginBottom: 8 }}>
                   Workflow Tracking Identifiers
@@ -705,7 +705,7 @@ export default function TrustBridgeHITL() {
             Our smart policy engine automatically separates high-risk actions from harmless actions.
           </p>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
+          <div className="resp-grid-2" style={{ gap: 24 }}>
             <div style={{ background: '#fff5f5', border: '1px solid #fecaca', borderRadius: 12, padding: 20 }}>
               <h3 style={{ fontSize: 15, fontWeight: 800, color: '#991b1b', margin: '0 0 10px', display: 'flex', alignItems: 'center', gap: 8 }}>
                 <ShieldAlert size={18} /> High-Risk Actions (Must Stop & Ask Human)

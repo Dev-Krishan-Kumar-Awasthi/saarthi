@@ -94,7 +94,7 @@ export default function AuditTrail() {
       </div>
 
       {/* Filter + Events */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 340px', gap: 16 }}>
+      <div className="resp-grid-split-rev">
         <div>
           {/* Filter */}
           <div style={{ display: 'flex', gap: 6, marginBottom: 14 }}>

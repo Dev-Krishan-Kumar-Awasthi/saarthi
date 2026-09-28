@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Bell, Search, Shield, Cpu, Database, CheckCircle2, X } from 'lucide-react';
+import { Bell, Search, Shield, Cpu, Database, CheckCircle2, X, Menu } from 'lucide-react';
 import { useSaarthiStore } from '../store/saarthiStore';
 
-export default function Header() {
+export default function Header({ onToggleSidebar }) {
   const { notifications, markNotificationsRead, backendConnected } = useSaarthiStore();
   const [showNotifs, setShowNotifs] = useState(false);
   const [search, setSearch] = useState('');
@@ -11,24 +11,32 @@ export default function Header() {
   const colorMap = { warning: '#d97706', error: '#dc2626', info: '#2563eb', success: '#059669' };
 
   return (
-    <header style={{
+    <header className="responsive-header" style={{
       height: 56,
       borderBottom: '1px solid #e2e8f0',
       background: '#ffffff',
       display: 'flex',
       alignItems: 'center',
-      padding: '0 24px',
-      gap: 16,
+      gap: 12,
       position: 'relative',
       zIndex: 20,
     }}>
+      {/* Mobile Hamburger Toggle */}
+      <button
+        onClick={onToggleSidebar}
+        className="mobile-menu-btn"
+        aria-label="Toggle navigation menu"
+      >
+        <Menu size={18} />
+      </button>
+
       {/* Search */}
       <div style={{ flex: 1, maxWidth: 360, position: 'relative' }}>
         <Search size={14} style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
         <input
           value={search}
           onChange={e => setSearch(e.target.value)}
-          placeholder="Search events, workflows, customers..."
+          placeholder="Search events, workflows..."
           style={{
             width: '100%', padding: '7px 12px 7px 32px',
             background: '#f8fafc', border: '1px solid #e2e8f0',
@@ -40,19 +48,22 @@ export default function Header() {
         />
       </div>
 
-      {/* System Status Indicators */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginLeft: 'auto' }}>
-        <StatusPill icon={Cpu} label="Agent" status="CONNECTED" color="#059669" />
-        <StatusPill icon={Shield} label="Governance" status="ACTIVE" color="#2563eb" />
-        <StatusPill icon={Database} label="Audit" status="VERIFIED" color="#0284c7" />
+      {/* System Status Indicators (hidden on small screens to prevent overflow) */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginLeft: 'auto' }}>
+        <div className="tablet-hide" style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+          <StatusPill icon={Cpu} label="Agent" status="CONNECTED" color="#059669" />
+          <StatusPill icon={Shield} label="Governance" status="ACTIVE" color="#2563eb" />
+          <StatusPill icon={Database} label="Audit" status="VERIFIED" color="#0284c7" />
+        </div>
 
         {/* Demo Mode */}
         {!backendConnected && (
           <span style={{
-            padding: '3px 10px', background: '#fffbeb',
+            padding: '3px 8px', background: '#fffbeb',
             border: '1px solid #fde68a', borderRadius: 20,
-            fontSize: 10.5, color: '#d97706', fontWeight: 700, letterSpacing: '0.05em',
-          }}>DEMO MODE</span>
+            fontSize: 10, color: '#d97706', fontWeight: 700, letterSpacing: '0.05em',
+            whiteSpace: 'nowrap'
+          }}>DEMO</span>
         )}
 
         {/* Notifications */}

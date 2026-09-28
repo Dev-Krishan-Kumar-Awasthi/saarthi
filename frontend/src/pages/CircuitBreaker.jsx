@@ -301,7 +301,7 @@ export default function CircuitBreaker() {
       </div>
 
       {/* Metrics Ribbon */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: 12, marginBottom: 24 }}>
+      <div className="resp-grid-7" style={{ marginBottom: 24 }}>
         {[
           { label: 'Circuit State', val: circuitStatus, color: isHalted ? '#ef4444' : '#10b981', sub: isHalted ? 'Tripped' : 'Protected' },
           { label: 'Agent Status', val: status?.agent_status || 'IDLE', color: '#0284c7', sub: `Run #${metrics?.total_runs || 0}` },
@@ -366,7 +366,7 @@ export default function CircuitBreaker() {
             </p>
 
             {/* Key Lock-In Metrics */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12, marginBottom: 14 }}>
+            <div className="resp-grid-4" style={{ marginBottom: 14 }}>
               <div style={{ background: '#ffffff', border: '1px solid #fecaca', borderRadius: 8, padding: 12 }}>
                 <div style={{ fontSize: 10, color: '#64748b', fontWeight: 700, letterSpacing: '0.5px' }}>CIRCUIT STATE</div>
                 <div style={{ fontFamily: 'monospace', fontWeight: 900, color: '#dc2626', fontSize: 16 }}>OPEN</div>
@@ -433,7 +433,7 @@ export default function CircuitBreaker() {
       })()}
 
       {/* Grid: Gauges + Terminal */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
+      <div className="resp-grid-2" style={{ gap: 24 }}>
         {/* Left: Gauges & Scenarios */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
           {/* Gauges */}

@@ -372,3 +372,282 @@ html, body, #root {
 /* ── Recharts override ── */
 .recharts-cartesian-axis-tick-value { fill: #64748b !important; font-size: 11px !important; }
 .recharts-legend-item-text { color: #475569 !important; font-size: 12px !important; }
+
+/* ══════════════════════════════════════════════════════════
+   CROSS-DEVICE RESPONSIVENESS (Mobile, Tablet, Laptop, Desktop)
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Responsive Grids ── */
+.resp-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.resp-grid-6 {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+}
+
+.resp-grid-7 {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 12px;
+}
+
+.resp-grid-5 {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+
+.resp-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.resp-grid-split {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 24px;
+}
+
+.resp-grid-split-rev {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 16px;
+}
+
+/* ── Sidebar Drawer & Backdrop for Mobile/Tablet ── */
+.sidebar-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(11, 26, 48, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 45;
+  transition: opacity 0.25s ease;
+}
+
+.sidebar-container {
+  width: 240px;
+  min-width: 240px;
+  background: #ffffff;
+  border-right: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  z-index: 50;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Mobile Bottom Navigation Bar ── */
+.mobile-bottom-nav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: #ffffff;
+  border-top: 1px solid #e2e8f0;
+  z-index: 40;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 4px;
+  box-shadow: 0 -4px 16px rgba(11, 26, 48, 0.05);
+}
+
+.mobile-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  background: none;
+  border: none;
+  color: #64748b;
+  font-size: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 8px;
+  transition: all 0.15s ease;
+  position: relative;
+}
+
+.mobile-nav-item.active {
+  color: #2563eb;
+  font-weight: 700;
+}
+
+.mobile-nav-badge {
+  position: absolute;
+  top: 2px;
+  right: 8px;
+  background: #f59e0b;
+  color: #ffffff;
+  border-radius: 10px;
+  font-size: 9px;
+  font-weight: 800;
+  padding: 0 4px;
+  min-width: 14px;
+  text-align: center;
+}
+
+/* ── Responsive Header & Main Content Helpers ── */
+.responsive-header {
+  padding: 0 24px;
+}
+
+.responsive-main {
+  padding: 24px;
+}
+
+.table-responsive-container {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.mobile-menu-btn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  width: 36px;
+  height: 36px;
+  color: #0b1a30;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(11, 26, 48, 0.04);
+}
+
+.mobile-menu-btn:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+/* ── LAPTOP / TABLET BREAKPOINTS (< 1200px) ── */
+@media (max-width: 1200px) {
+  .resp-grid-7 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .resp-grid-6 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .resp-grid-5 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ── TABLET BREAKPOINTS (< 1024px) ── */
+@media (max-width: 1024px) {
+  .mobile-menu-btn {
+    display: inline-flex;
+  }
+
+  .sidebar-container {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    transform: translateX(-100%);
+    box-shadow: 0 20px 50px rgba(11, 26, 48, 0.2);
+  }
+
+  .sidebar-container.open {
+    transform: translateX(0);
+  }
+
+  .resp-grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .resp-grid-split {
+    grid-template-columns: 1fr;
+  }
+
+  .resp-grid-split-rev {
+    grid-template-columns: 1fr;
+  }
+
+  .tablet-hide {
+    display: none !important;
+  }
+}
+
+/* ── MOBILE PHONE BREAKPOINTS (< 768px) ── */
+@media (max-width: 768px) {
+  .responsive-header {
+    padding: 0 14px;
+    height: 52px;
+  }
+
+  .responsive-main {
+    padding: 14px 14px 72px 14px !important; /* Extra bottom padding for mobile nav */
+  }
+
+  .mobile-bottom-nav {
+    display: flex;
+  }
+
+  .resp-grid-4 {
+    grid-template-columns: 1fr;
+  }
+
+  .resp-grid-6 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .resp-grid-7 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .resp-grid-5 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .resp-grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .mobile-hide {
+    display: none !important;
+  }
+
+  .mobile-stack-wrap {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+  }
+
+  .mobile-full-width {
+    width: 100% !important;
+  }
+
+  .modal-content {
+    padding: 18px !important;
+    width: 95% !important;
+  }
+}
+
+/* ── SMALL PHONES (< 480px) ── */
+@media (max-width: 480px) {
+  .resp-grid-6 {
+    grid-template-columns: 1fr;
+  }
+
+  .resp-grid-7 {
+    grid-template-columns: 1fr;
+  }
+
+  .resp-grid-5 {
+    grid-template-columns: 1fr;
+  }
+
+  .responsive-main {
+    padding: 10px 10px 72px 10px !important;
+  }
+}

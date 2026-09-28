@@ -85,7 +85,7 @@ export default function Dashboard() {
   return (
     <div style={{ maxWidth: 1400, margin: '0 auto', color: '#0b1a30' }}>
       {/* ── Top Header Banner ── */}
-      <div style={{ marginBottom: 20, display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
+      <div className="mobile-stack-wrap" style={{ marginBottom: 20, display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
         <div>
           <div style={{
             display: 'inline-flex', alignItems: 'center', gap: 6,
@@ -126,7 +126,7 @@ export default function Dashboard() {
       </div>
 
       {/* ── 4 KPI Status Cards ── */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14, marginBottom: 20 }}>
+      <div className="resp-grid-4" style={{ marginBottom: 20 }}>
         <div className="glass-card" style={{ padding: '16px 18px', borderLeft: '4px solid #2563eb' }}>
           <div style={{ fontSize: 11, color: '#64748b', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
             Evaluated
@@ -201,7 +201,7 @@ export default function Dashboard() {
           )}
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12 }}>
+        <div className="resp-grid-4">
           {SCENARIOS.map(sc => {
             const isSelected = selectedScenario === sc.id;
             return (
@@ -344,7 +344,7 @@ export default function Dashboard() {
             const displayAmount = latestDecision?.amount ?? latestDecision?.parameters?.amount;
 
             return (
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: 10, alignItems: 'stretch' }}>
+              <div className="resp-grid-6" style={{ alignItems: 'stretch' }}>
                 {/* Step 1: Agent & Action */}
                 <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 8, padding: '12px 10px' }}>
                   <div style={{ fontSize: 10, fontWeight: 700, color: '#64748b', textTransform: 'uppercase' }}>1. Agent & Action</div>

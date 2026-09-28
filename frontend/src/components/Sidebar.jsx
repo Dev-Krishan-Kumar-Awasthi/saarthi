@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {
   LayoutDashboard, Activity, FlaskConical, Shield,
-  FileText, BarChart3, Users, ChevronRight, Zap, RotateCcw
+  FileText, BarChart3, Users, ChevronRight, Zap, RotateCcw, X
 } from 'lucide-react';
 import { useSaarthiStore } from '../store/saarthiStore';
 
@@ -13,54 +13,66 @@ const NAV_ITEMS = [
   { id: 'audit',      icon: FileText,        label: 'Audit Trail' },
 ];
 
-export default function Sidebar() {
+export default function Sidebar({ isOpen, onClose }) {
   const { activePage, setActivePage, backendConnected, backendChecked, resetDemo, humanReviews } = useSaarthiStore();
   const pendingReviews = humanReviews.filter(r => r.status === 'PENDING').length;
 
-  return (
-    <aside style={{
-      width: 240,
-      minWidth: 240,
-      background: '#ffffff',
-      borderRight: '1px solid #e2e8f0',
-      display: 'flex',
-      flexDirection: 'column',
-      padding: '0',
-      zIndex: 10,
-    }}>
-      {/* Brand Header */}
-      <div style={{ padding: '20px 18px 16px', borderBottom: '1px solid #e2e8f0' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 4 }}>
-          <div style={{
-            width: 34, height: 34, borderRadius: 8,
-            background: 'linear-gradient(135deg, #0b1a30 0%, #0284c7 100%)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontSize: 15, fontWeight: 900, color: '#ffffff',
-            boxShadow: '0 2px 6px rgba(11,26,48,0.2)'
-          }}>S</div>
-          <div>
-            <div style={{ fontSize: 17, fontWeight: 800, color: '#0b1a30', letterSpacing: '-0.02em' }}>SAARTHI</div>
-            <div style={{ fontSize: 9.5, color: '#64748b', fontWeight: 600, letterSpacing: '0.06em' }}>RUNTIME GOVERNANCE</div>
-          </div>
-        </div>
-      </div>
+  const handleNavClick = (pageId) => {
+    setActivePage(pageId);
+    if (onClose) onClose();
+  };
 
-      {/* Navigation */}
-      <nav style={{ flex: 1, padding: '12px 10px', overflowY: 'auto' }}>
-        <div style={{ fontSize: 10, color: '#94a3b8', fontWeight: 700, letterSpacing: '0.08em', padding: '4px 6px 8px', marginBottom: 2 }}>
-          NAVIGATION
+  return (
+    <>
+      {/* Mobile Drawer Backdrop */}
+      {isOpen && (
+        <div className="sidebar-backdrop" onClick={onClose} />
+      )}
+
+      <aside className={`sidebar-container ${isOpen ? 'open' : ''}`}>
+        {/* Brand Header */}
+        <div style={{ padding: '16px 18px 14px', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <div style={{
+              width: 34, height: 34, borderRadius: 8,
+              background: 'linear-gradient(135deg, #0b1a30 0%, #0284c7 100%)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              fontSize: 15, fontWeight: 900, color: '#ffffff',
+              boxShadow: '0 2px 6px rgba(11,26,48,0.2)'
+            }}>S</div>
+            <div>
+              <div style={{ fontSize: 17, fontWeight: 800, color: '#0b1a30', letterSpacing: '-0.02em' }}>SAARTHI</div>
+              <div style={{ fontSize: 9.5, color: '#64748b', fontWeight: 600, letterSpacing: '0.06em' }}>RUNTIME GOVERNANCE</div>
+            </div>
+          </div>
+
+          {/* Close button on mobile/tablet */}
+          <button
+            onClick={onClose}
+            className="mobile-menu-btn"
+            style={{ display: isOpen ? 'inline-flex' : 'none', width: 30, height: 30 }}
+            aria-label="Close menu"
+          >
+            <X size={16} />
+          </button>
         </div>
-        {NAV_ITEMS.map(item => {
-          const Icon = item.icon;
-          const isActive = activePage === item.id;
-          const badge = item.id === 'review' ? pendingReviews : 0;
-          return (
-            <button
-              key={item.id}
-              onClick={() => setActivePage(item.id)}
-              className={`sidebar-item ${isActive ? 'active' : ''}`}
-              style={{ width: '100%', border: 'none', marginBottom: 3 }}
-            >
+
+        {/* Navigation */}
+        <nav style={{ flex: 1, padding: '12px 10px', overflowY: 'auto' }}>
+          <div style={{ fontSize: 10, color: '#94a3b8', fontWeight: 700, letterSpacing: '0.08em', padding: '4px 6px 8px', marginBottom: 2 }}>
+            NAVIGATION
+          </div>
+          {NAV_ITEMS.map(item => {
+            const Icon = item.icon;
+            const isActive = activePage === item.id;
+            const badge = item.id === 'review' ? pendingReviews : 0;
+            return (
+              <button
+                key={item.id}
+                onClick={() => handleNavClick(item.id)}
+                className={`sidebar-item ${isActive ? 'active' : ''}`}
+                style={{ width: '100%', border: 'none', marginBottom: 3 }}
+              >
               <Icon size={15} />
               <span style={{ flex: 1, textAlign: 'left' }}>{item.label}</span>
               {badge > 0 && (
@@ -116,5 +128,6 @@ export default function Sidebar() {
         </button>
       </div>
     </aside>
+    </>
   );
 }

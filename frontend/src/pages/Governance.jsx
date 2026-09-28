@@ -51,7 +51,7 @@ export default function Governance() {
         <div style={{ fontSize: 11, fontWeight: 700, color: '#64748b', letterSpacing: '0.05em', marginBottom: 12 }}>
           LOCKED 5-STAGE GOVERNANCE ARCHITECTURE
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 10 }}>
+        <div className="resp-grid-5">
           <div style={{ padding: '10px 12px', background: '#eff6ff', border: '1px solid #bfdbfe', borderRadius: 8 }}>
             <div style={{ fontSize: 11, fontWeight: 800, color: '#1d4ed8' }}>1. EVIDENCE</div>
             <div style={{ fontSize: 10.5, color: '#475569', marginTop: 3 }}>Claims vs SQLite State</div>
@@ -125,7 +125,7 @@ export default function Governance() {
             </div>
 
             {/* Detailed 4-Column Grid for the Stages */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16, marginBottom: 20 }}>
+            <div className="resp-grid-2" style={{ marginBottom: 20 }}>
               {/* Stage 1: Evidence Verification */}
               <div className="glass-card" style={{ padding: '20px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
